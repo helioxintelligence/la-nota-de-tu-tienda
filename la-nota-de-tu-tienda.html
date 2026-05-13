@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Nota de tu Tienda · Outside Retail</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #f5f5f7;
+      --surface:   #ffffff;
+      --border:    #e8e8ed;
+      --text-1:    #1d1d1f;
+      --text-2:    #6e6e73;
+      --text-3:    #aeaeb2;
+      --accent:    #0071e3;
+      --green:     #34c759;
+      --yellow:    #ff9f0a;
+      --red:       #ff3b30;
+      --green-bg:  #f0faf2;
+      --yellow-bg: #fff8ec;
+      --red-bg:    #fff5f4;
+      --r-sm: 10px; --r-md: 16px; --r-lg: 24px;
+      --sh:    0 2px 12px rgba(0,0,0,.06);
+      --sh-md: 0 6px 28px rgba(0,0,0,.10);
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text-1); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* STICKY */
+    .sticky { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.88); backdrop-filter: saturate(180%) blur(16px); -webkit-backdrop-filter: saturate(180%) blur(16px); border-bottom: 1px solid var(--border); }
+    .sticky-inner { max-width: 900px; margin: 0 auto; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .sticky-brand { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+    .sticky-right { display: flex; align-items: center; gap: 12px; }
+    .sticky-info  { font-size: 12px; color: var(--text-3); }
+    .sticky-pill  { font-size: 14px; font-weight: 800; padding: 5px 16px; border-radius: 100px; background: var(--bg); border: 1px solid var(--border); color: var(--text-1); min-width: 72px; text-align: center; transition: all .3s; letter-spacing: -.01em; }
+
+    /* PAGE */
+    .page { max-width: 900px; margin: 0 auto; padding: 28px 24px 72px; }
+
+    /* HEADER */
+    .eval-header { background: var(--surface); border-radius: var(--r-lg); padding: 36px 40px; box-shadow: var(--sh); margin-bottom: 20px; }
+    .brand-row { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+    .brand-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+    .brand-lbl { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+    .eval-header h1 { font-size: clamp(22px, 4vw, 30px); font-weight: 700; letter-spacing: -.02em; margin-bottom: 5px; }
+    .eval-header p  { font-size: 14px; color: var(--text-2); margin-bottom: 22px; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .info-field label { display: block; font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+    .info-field input { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--r-sm); font-size: 14px; font-family: inherit; color: var(--text-1); background: var(--bg); outline: none; transition: border-color .15s, box-shadow .15s; }
+    .info-field input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,113,227,.1); background: #fff; }
+    .info-field input::placeholder { color: var(--text-3); }
+    .ticket-wrap { position: relative; }
+    .ticket-wrap input { padding-right: 28px; }
+    .ticket-symbol { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 13px; font-weight: 600; color: var(--text-3); pointer-events: none; }
+
+    /* INTRO BANNER */
+    .intro-banner { background: var(--surface); border-radius: var(--r-md); padding: 18px 22px; box-shadow: var(--sh); margin-bottom: 16px; border-left: 3px solid var(--accent); }
+    .intro-banner p { font-size: 13px; color: var(--text-2); line-height: 1.65; }
+    .nps-scale-explain { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .nps-explain-item { display: flex; align-items: center; gap: 7px; padding: 6px 12px; border-radius: var(--r-sm); font-size: 12px; font-weight: 600; }
+    .nps-explain-item .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .nps-explain-item.det { background: var(--red-bg); color: #c0392b; } .nps-explain-item.det .dot { background: var(--red); }
+    .nps-explain-item.pas { background: var(--yellow-bg); color: #8a5a00; } .nps-explain-item.pas .dot { background: var(--yellow); }
+    .nps-explain-item.pro { background: var(--green-bg); color: #1a7a32; } .nps-explain-item.pro .dot { background: var(--green); }
+
+    /* SECTION HEADING */
+    .section-hd { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+    .section-hd h2 { font-size: 18px; font-weight: 700; letter-spacing: -.02em; }
+    .section-hd span { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); }
+
+    /* AREA CARDS */
+    .areas-list { display: flex; flex-direction: column; gap: 14px; }
+    .area-card { background: var(--surface); border-radius: var(--r-md); padding: 24px 26px; box-shadow: var(--sh); border: 1.5px solid var(--border); transition: border-color .2s, box-shadow .2s; }
+    .area-card.scored { border-color: transparent; box-shadow: var(--sh-md); }
+    .area-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+    .area-title-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 3px; }
+    .area-name { font-size: 16px; font-weight: 700; }
+    .area-step { font-size: 10px; font-weight: 700; color: var(--accent); background: rgba(0,113,227,.08); padding: 2px 9px; border-radius: 100px; letter-spacing: .04em; }
+    .area-q    { font-size: 12px; color: var(--text-3); margin-bottom: 18px; font-style: italic; }
+    .area-badge { display: flex; flex-direction: column; align-items: center; padding: 6px 14px; border-radius: var(--r-sm); background: var(--bg); flex-shrink: 0; min-width: 82px; text-align: center; transition: all .2s; }
+    .area-badge-label { font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+    .area-badge-score { font-size: 22px; font-weight: 800; line-height: 1.1; }
+
+    /* NPS PICKER */
+    .nps-picker { display: grid; grid-template-columns: 3fr 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .nps-zone { border-radius: var(--r-sm); padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 8px; }
+    .nps-zone.det { background: rgba(255,59,48,.06); }
+    .nps-zone.pas { background: rgba(255,159,10,.06); }
+    .nps-zone.pro { background: rgba(52,199,89,.07); }
+    .nps-zone-lbl { font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; text-align: center; }
+    .nps-zone.det .nps-zone-lbl { color: #c0392b; }
+    .nps-zone.pas .nps-zone-lbl { color: #8a5a00; }
+    .nps-zone.pro .nps-zone-lbl { color: #1a7a32; }
+    .nps-zone-desc { font-size: 10px; color: var(--text-3); text-align: center; line-height: 1.3; }
+    .nps-btns { display: flex; gap: 6px; justify-content: center; }
+    .nps-btn { width: 44px; height: 44px; border-radius: 10px; border: 1.5px solid var(--border); background: var(--surface); font-size: 17px; font-weight: 800; color: var(--text-2); cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: center; transition: all .12s; }
+    .nps-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+    .nps-btn.sel-det { background: var(--red);    border-color: var(--red);    color: #fff; transform: scale(1.1); box-shadow: 0 4px 14px rgba(255,59,48,.35); }
+    .nps-btn.sel-pas { background: var(--yellow); border-color: var(--yellow); color: #fff; transform: scale(1.1); box-shadow: 0 4px 14px rgba(255,159,10,.35); }
+    .nps-btn.sel-pro { background: var(--green);  border-color: var(--green);  color: #fff; transform: scale(1.1); box-shadow: 0 4px 14px rgba(52,199,89,.35); }
+
+    /* PROGRESS */
+    .progress-track { height: 3px; background: var(--border); border-radius: 100px; overflow: hidden; margin-bottom: 14px; }
+    .progress-fill  { height: 100%; border-radius: 100px; width: 0; transition: width .6s cubic-bezier(.4,0,.2,1), background .3s; }
+
+    /* OBS */
+    .obs-label { font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--text-3); margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
+    .obs-req   { font-size: 9px; font-weight: 600; color: var(--accent); background: rgba(0,113,227,.08); padding: 2px 7px; border-radius: 100px; }
+    .obs-textarea { width: 100%; padding: 10px 13px; border: 1px solid var(--border); border-radius: var(--r-sm); font-size: 13px; font-family: inherit; color: var(--text-1); background: var(--bg); outline: none; resize: vertical; min-height: 58px; line-height: 1.55; transition: border-color .15s, box-shadow .15s; }
+    .obs-textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,113,227,.1); background: #fff; }
+    .obs-textarea.warn { border-color: var(--yellow); }
+    .obs-textarea::placeholder { color: var(--text-3); font-style: italic; }
+    .obs-chars { font-size: 10px; color: var(--text-3); text-align: right; margin-top: 3px; }
+
+    /* DIVIDER */
+    .divider { display: flex; align-items: center; gap: 12px; margin: 32px 0 24px; }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .divider span { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); white-space: nowrap; }
+
+    /* PLACEHOLDER */
+    .placeholder-card { background: var(--surface); border-radius: var(--r-lg); padding: 48px 40px; text-align: center; box-shadow: var(--sh); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .placeholder-card h3 { font-size: 17px; font-weight: 700; }
+    .placeholder-card p  { font-size: 14px; color: var(--text-2); max-width: 300px; line-height: 1.55; }
+    .ph-dots { display: flex; gap: 5px; margin-top: 6px; }
+    .ph-dot  { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: background .3s; }
+    .ph-dot.on { background: var(--accent); }
+
+    /* REPORT META */
+    .report-meta { background: var(--surface); border-radius: var(--r-md); padding: 16px 22px; box-shadow: var(--sh); margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px 20px; }
+    .rmeta-item { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+    .rmlabel { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); }
+    .rmval   { font-weight: 600; color: var(--text-1); }
+    .rmeta-sep { width: 1px; background: var(--border); align-self: stretch; flex-shrink: 0; }
+
+    /* RESUMEN EN 30 SEGUNDOS */
+    .s30 { background: var(--surface); border-radius: var(--r-md); box-shadow: var(--sh); margin-bottom: 18px; overflow: hidden; }
+    .s30-hd { padding: 14px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .s30-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
+    .s30-note { font-size: 10px; color: var(--text-3); }
+    .s30-table { width: 100%; border-collapse: collapse; }
+    .s30-table tr { border-bottom: 1px solid var(--border); }
+    .s30-table tr:last-child { border-bottom: none; }
+    .s30-table td { padding: 13px 22px; font-size: 13px; vertical-align: middle; }
+    .s30-table td:first-child { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); width: 150px; white-space: nowrap; }
+    .s30-table td:last-child { font-weight: 500; color: var(--text-1); line-height: 1.4; }
+    .s30-score { font-size: 20px; font-weight: 800; letter-spacing: -.03em; }
+    .s30-next { display: inline-flex; align-items: center; gap: 7px; background: var(--green-bg); color: #1a7a32; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+    .s30-next::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+    .s30-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .s30-tag  { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 100px; }
+    .s30-tag-pro { background: var(--green-bg);  color: #1a7a32; }
+    .s30-tag-det { background: var(--red-bg);    color: #c0392b; }
+    .s30-tag-pas { background: var(--yellow-bg); color: #8a5a00; }
+    .s30-empty   { font-size: 12px; color: var(--text-3); font-style: italic; }
+
+    /* SCORE CARD */
+    .score-card { background: var(--surface); border-radius: var(--r-lg); padding: 36px 40px; box-shadow: var(--sh); margin-bottom: 18px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+    .ring-wrap { position: relative; width: 130px; height: 130px; flex-shrink: 0; }
+    .ring-wrap svg { transform: rotate(-90deg); width: 130px; height: 130px; }
+    .ring-bg { fill: none; stroke: var(--border); stroke-width: 8; }
+    .ring-fg { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1s cubic-bezier(.4,0,.2,1), stroke .4s; }
+    /* Neutral mark at 50% (halfway = NPS 0 = all passives) */
+    .ring-neutral { fill: none; stroke: rgba(174,174,178,.4); stroke-width: 2; stroke-dasharray: 3,2; }
+    .ring-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; }
+    .ring-num  { font-size: 36px; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+    .ring-den  { font-size: 12px; color: var(--text-3); margin-top: 2px; font-weight: 500; }
+    .score-meta { flex: 1; min-width: 200px; }
+    .score-lbl   { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: 4px 11px; border-radius: 100px; margin-bottom: 10px; }
+    .score-title { font-size: 22px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 6px; }
+    .score-sub   { font-size: 13px; color: var(--text-2); line-height: 1.5; margin-bottom: 14px; }
+    /* Score scale hint */
+    .score-scale { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; }
+    .scale-track { flex: 1; height: 5px; border-radius: 100px; background: linear-gradient(to right, var(--red), var(--yellow) 50%, var(--green)); position: relative; }
+    .scale-marker { position: absolute; top: 50%; transform: translate(-50%,-50%); width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 3px solid; transition: left .8s cubic-bezier(.4,0,.2,1), border-color .4s; }
+    .scale-label-0  { font-size: 10px; color: var(--text-3); white-space: nowrap; }
+    .scale-label-50 { font-size: 10px; color: var(--text-3); }
+    .scale-label-100{ font-size: 10px; color: var(--text-3); white-space: nowrap; }
+    /* Breakdown */
+    .nps-breakdown { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .nps-bd-item { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 100px; }
+    .nps-bd-item .bddot { width: 7px; height: 7px; border-radius: 50%; }
+    .nps-bd-item.pro { background: var(--green-bg); color: #1a7a32; } .nps-bd-item.pro .bddot { background: var(--green); }
+    .nps-bd-item.pas { background: var(--yellow-bg); color: #8a5a00; } .nps-bd-item.pas .bddot { background: var(--yellow); }
+    .nps-bd-item.det { background: var(--red-bg); color: #c0392b; }  .nps-bd-item.det .bddot { background: var(--red); }
+    .bench-row  { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .bench-item { font-size: 12px; padding: 5px 12px; border-radius: 100px; background: var(--bg); border: 1px solid var(--border); }
+    .bench-item span { font-weight: 700; }
+    .bench-diff { font-size: 12px; font-weight: 700; }
+
+    /* MSG */
+    .msg-card { border-radius: var(--r-md); padding: 18px 22px; margin-bottom: 18px; font-size: 15px; font-weight: 500; line-height: 1.6; }
+
+    /* JOURNEY MAP */
+    .journey-card { background: var(--surface); border-radius: var(--r-lg); padding: 32px 36px; box-shadow: var(--sh); margin-bottom: 18px; }
+    .journey-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .journey-sub   { font-size: 12px; color: var(--text-3); margin-bottom: 24px; }
+    .journey-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+    .journey-track  { display: flex; align-items: flex-start; justify-content: space-between; min-width: 520px; padding: 8px 0 4px; }
+    .journey-node   { display: flex; flex-direction: column; align-items: center; gap: 7px; flex: 1; }
+    .journey-dot    { width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; border: 3px solid transparent; transition: all .3s; flex-shrink: 0; }
+    .jd-green  { background: var(--green-bg); color: #1a7a32; border-color: var(--green); }
+    .jd-yellow { background: var(--yellow-bg); color: #8a5a00; border-color: var(--yellow); }
+    .jd-red    { background: var(--red-bg);    color: #c0392b; border-color: var(--red); }
+    .jd-empty  { background: var(--bg); color: var(--text-3); border-color: var(--border); border-style: dashed; font-size: 16px; }
+    .journey-connector { display: flex; align-items: center; padding-top: 20px; flex-shrink: 0; color: var(--text-3); font-size: 20px; padding-left: 4px; padding-right: 4px; }
+    .jconn-green  { color: var(--green); } .jconn-yellow { color: var(--yellow); } .jconn-red { color: var(--red); }
+    .journey-name  { font-size: 12px; font-weight: 700; text-align: center; color: var(--text-1); line-height: 1.3; max-width: 80px; }
+    .journey-step  { font-size: 10px; color: var(--text-3); text-align: center; }
+    .journey-class { font-size: 10px; font-weight: 800; text-align: center; text-transform: uppercase; letter-spacing: .06em; }
+    .jclass-green  { color: #1a7a32; } .jclass-yellow { color: #8a5a00; } .jclass-red { color: #c0392b; }
+    .jclass-empty  { color: var(--text-3); font-weight: 500; letter-spacing: 0; text-transform: none; }
+    .journey-summary { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); }
+    .journey-tag { font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 100px; display: flex; align-items: center; gap: 5px; }
+    .journey-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .jtag-pro { background: var(--green-bg); color: #1a7a32; } .jtag-pro::before { background: var(--green); }
+    .jtag-pas { background: var(--yellow-bg); color: #8a5a00; } .jtag-pas::before { background: var(--yellow); }
+    .jtag-det { background: var(--red-bg); color: #c0392b; }  .jtag-det::before { background: var(--red); }
+
+    /* WHY IT MATTERS */
+    .why-card { background: var(--surface); border-radius: var(--r-lg); padding: 36px 40px; box-shadow: var(--sh); margin-bottom: 18px; }
+    .why-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .why-title { font-size: 20px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 8px; }
+    .why-text  { font-size: 14px; color: var(--text-2); line-height: 1.65; max-width: 600px; }
+    .multipliers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 24px; }
+    .multiplier-card { border-radius: var(--r-md); padding: 22px 20px; display: flex; flex-direction: column; gap: 8px; }
+    .multiplier-card.m1 { background: linear-gradient(135deg, #f0faf2, #e8f8ed); }
+    .multiplier-card.m2 { background: linear-gradient(135deg, #f0f8ff, #e6f2ff); }
+    .multiplier-card.m3 { background: linear-gradient(135deg, #fff8ec, #fff3e0); }
+    .multiplier-card.m4 { background: linear-gradient(135deg, #f8f0ff, #f0e6ff); }
+    .multiplier-num { font-size: 40px; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+    .m1 .multiplier-num { color: #1a7a32; } .m2 .multiplier-num { color: #004aad; }
+    .m3 .multiplier-num { color: #8a5a00; } .m4 .multiplier-num { color: #6b21a8; }
+    .multiplier-label { font-size: 13px; font-weight: 600; color: var(--text-1); line-height: 1.4; }
+    .multiplier-sub   { font-size: 11px; color: var(--text-3); }
+    .why-source { font-size: 11px; color: var(--text-3); margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+
+    /* CALCULATOR */
+    .calc-card { background: var(--surface); border-radius: var(--r-lg); padding: 36px 40px; box-shadow: var(--sh); margin-bottom: 18px; border: 1.5px solid var(--border); }
+    .calc-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-2); margin-bottom: 8px; }
+    .calc-title { font-size: 20px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 6px; }
+    .calc-warning { font-size: 12px; color: var(--text-3); display: flex; align-items: center; gap: 6px; margin-bottom: 22px; }
+    .calc-warning::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); flex-shrink: 0; }
+    .calc-inputs-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+    .calc-field { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 140px; }
+    .calc-field label { font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--text-3); }
+    .calc-input-wrap { position: relative; }
+    .calc-input-wrap input { width: 100%; padding: 11px 32px 11px 14px; border: 1.5px solid var(--border); border-radius: var(--r-sm); font-size: 20px; font-weight: 700; font-family: inherit; color: var(--text-1); background: var(--bg); outline: none; transition: border-color .15s, box-shadow .15s; }
+    .calc-input-wrap input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,113,227,.1); background: #fff; }
+    .calc-input-unit { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 13px; font-weight: 600; color: var(--text-3); pointer-events: none; }
+    .calc-scenarios { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .calc-scenario { border-radius: var(--r-md); padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; }
+    .calc-scenario.conserv { background: var(--bg); }
+    .calc-scenario.moder   { background: rgba(0,113,227,.04); border: 1px solid rgba(0,113,227,.12); }
+    .calc-sc-label   { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
+    .calc-scenario.moder .calc-sc-label { color: var(--accent); }
+    .calc-sc-desc    { font-size: 12px; color: var(--text-2); line-height: 1.4; }
+    .calc-sc-clients { font-size: 13px; font-weight: 600; color: var(--text-1); }
+    .calc-sc-amounts { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+    .calc-sc-monthly { font-size: 14px; color: var(--text-2); }
+    .calc-sc-yearly  { font-size: 28px; font-weight: 800; letter-spacing: -.03em; color: var(--text-1); line-height: 1; }
+    .calc-scenario.moder .calc-sc-yearly { color: var(--accent); }
+    .calc-sc-year-lbl { font-size: 12px; color: var(--text-3); }
+    .calc-footer { font-size: 11px; color: var(--text-3); margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); line-height: 1.6; }
+
+    /* OBS REPORT */
+    .obs-report { background: var(--surface); border-radius: var(--r-md); padding: 28px 32px; box-shadow: var(--sh); margin-bottom: 18px; }
+    .obs-entries { display: flex; flex-direction: column; gap: 18px; }
+    .obs-sep { height: 1px; background: var(--border); }
+    .obs-entry-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .obs-entry-pill { font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; }
+    .obs-entry-area { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); }
+    .obs-entry-text { font-size: 14px; color: var(--text-1); line-height: 1.6; font-style: italic; }
+
+    /* INSIGHT GRID */
+    .insight-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+    .insight-card { background: var(--surface); border-radius: var(--r-md); padding: 20px 22px; box-shadow: var(--sh); display: flex; flex-direction: column; gap: 8px; }
+    .insight-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+    .ig { background: var(--green-bg); color: #1a7a32; } .iy { background: var(--yellow-bg); color: #8a5a00; }
+    .insight-card p    { font-size: 13px; font-weight: 500; color: var(--text-1); line-height: 1.45; }
+    .insight-card span { font-size: 11px; color: var(--text-3); }
+
+    /* ACTION HERO */
+    .action-hero { background: var(--text-1); color: #fff; border-radius: var(--r-lg); padding: 36px 40px; box-shadow: var(--sh-md); margin-bottom: 18px; }
+    .ah-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #636366; margin-bottom: 12px; }
+    .ah-title { font-size: clamp(18px, 3vw, 24px); font-weight: 800; letter-spacing: -.02em; margin-bottom: 6px; }
+    .ah-area  { font-size: 12px; color: #636366; margin-bottom: 20px; }
+    .ah-rows  { display: flex; flex-direction: column; gap: 14px; }
+    .ah-row label { display: block; font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #636366; margin-bottom: 3px; }
+    .ah-row p     { font-size: 14px; color: #d1d1d6; line-height: 1.55; }
+    .ah-indicator { display: inline-flex; align-items: center; gap: 7px; margin-top: 4px; background: rgba(255,255,255,.08); border-radius: 8px; padding: 8px 14px; font-size: 13px; color: #e5e5ea; font-weight: 500; }
+    .ah-indicator::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; flex-shrink: 0; }
+
+    /* TEAM */
+    .team-card { background: var(--surface); border-radius: var(--r-lg); padding: 32px 36px; box-shadow: var(--sh); margin-bottom: 18px; }
+    .team-intro { font-size: 14px; color: var(--text-2); margin-bottom: 20px; line-height: 1.6; }
+    .team-qs { display: flex; flex-direction: column; gap: 12px; }
+    .team-q { display: flex; gap: 14px; background: var(--bg); border-radius: var(--r-sm); padding: 14px 16px; }
+    .team-q-num  { font-size: 12px; font-weight: 800; color: var(--accent); flex-shrink: 0; padding-top: 1px; }
+    .team-q p    { font-size: 14px; color: var(--text-1); line-height: 1.5; font-style: italic; }
+    .team-q-area { font-size: 10px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
+
+    /* OUTSIDE RETAIL */
+    .or-wrap { background: #1d1d1f; border-radius: var(--r-lg); overflow: hidden; margin-bottom: 18px; }
+    .or-top  { padding: 32px 36px 26px; border-bottom: 1px solid rgba(255,255,255,.07); display: flex; flex-direction: column; gap: 10px; }
+    .or-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.3); }
+    .or-title   { font-size: clamp(18px, 3vw, 24px); font-weight: 800; letter-spacing: -.02em; color: #fff; }
+    .or-desc    { font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.65; max-width: 540px; }
+    .or-grid    { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 1px; background: rgba(255,255,255,.06); }
+    .or-card    { padding: 20px 20px 18px; background: #1d1d1f; display: flex; flex-direction: column; gap: 7px; transition: background .2s; }
+    .or-card:hover { background: #2a2a2e; }
+    .or-card.done  { background: #001d3d; }
+    .or-card.done:hover { background: #002855; }
+    .or-card-head { display: flex; align-items: center; justify-content: space-between; }
+    .or-num  { font-size: 11px; font-weight: 800; color: rgba(255,255,255,.2); }
+    .or-card.done .or-num { color: var(--green); font-size: 14px; }
+    .or-pill { font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 100px; }
+    .or-pill.done    { background: rgba(52,199,89,.15); color: var(--green); }
+    .or-pill.pending { background: rgba(255,255,255,.06); color: rgba(255,255,255,.25); }
+    .or-card-name    { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.3; }
+    .or-card.pending .or-card-name { color: rgba(255,255,255,.5); }
+    .or-card-text    { font-size: 11px; color: rgba(255,255,255,.28); line-height: 1.45; flex: 1; }
+    .or-card.done .or-card-text { color: rgba(255,255,255,.5); }
+    .or-footer-row   { padding: 16px 36px; border-top: 1px solid rgba(255,255,255,.07); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+    .or-footer-txt   { font-size: 12px; color: rgba(255,255,255,.3); }
+    .or-footer-link  { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.45); text-decoration: none; display: flex; align-items: center; gap: 5px; transition: color .15s; }
+    .or-footer-link:hover { color: #fff; }
+
+    /* CTA */
+    .cta-card { border-radius: var(--r-lg); padding: 40px; background: linear-gradient(135deg, #0071e3, #004aad); color: #fff; margin-bottom: 18px; }
+    .cta-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 12px; }
+    .cta-title { font-size: clamp(18px, 3vw, 26px); font-weight: 800; letter-spacing: -.02em; margin-bottom: 10px; line-height: 1.2; }
+    .cta-text  { font-size: 15px; color: rgba(255,255,255,.7); line-height: 1.65; margin-bottom: 24px; }
+    .cta-bullets { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .cta-bullet  { display: flex; align-items: flex-start; gap: 12px; }
+    .cta-bullet-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.35); flex-shrink: 0; margin-top: 7px; }
+    .cta-bullet span { font-size: 14px; color: rgba(255,255,255,.65); line-height: 1.55; }
+    .cta-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .cta-bottom-left  { display: flex; flex-direction: column; gap: 8px; }
+    .cta-free-note { font-size: 11px; color: rgba(255,255,255,.3); letter-spacing: .02em; }
+    .btn-white { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: #0071e3; border: none; border-radius: 100px; padding: 13px 26px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; text-decoration: none; transition: transform .15s; }
+    .btn-white:hover { transform: scale(1.03); }
+    .cta-contact a { display: block; color: rgba(255,255,255,.45); font-size: 13px; text-decoration: none; transition: color .15s; margin-bottom: 3px; }
+    .cta-contact a:hover { color: #fff; }
+
+    /* UTILS */
+    .print-bar { display: flex; justify-content: flex-end; margin-bottom: 18px; }
+    .btn-print { display: inline-flex; align-items: center; gap: 7px; background: var(--surface); color: var(--text-2); border: 1px solid var(--border); border-radius: 100px; padding: 8px 18px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; transition: all .15s; }
+    .btn-print:hover { background: var(--text-1); color: #fff; border-color: var(--text-1); }
+    .block { margin-bottom: 18px; }
+    .bg-green  { background: var(--green-bg);  color: #1a7a32; }
+    .bg-yellow { background: var(--yellow-bg); color: #8a5a00; }
+    .bg-red    { background: var(--red-bg);    color: #c0392b; }
+    .footer    { text-align: center; font-size: 11px; color: var(--text-3); padding-top: 6px; line-height: 1.7; }
+
+    @media print {
+      .sticky,.print-bar,.eval-header,.areas-list,.intro-banner,.divider { display: none !important; }
+      body { background: #fff; } .page { padding: 12px; }
+      .or-wrap,.cta-card,.action-hero,.calc-card,.why-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .cta-contact a { text-decoration: underline !important; color: rgba(255,255,255,.75) !important; }
+      .s30-next { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+    @media (max-width: 600px) {
+      .eval-header,.action-hero,.team-card,.cta-card,.why-card,.calc-card { padding: 22px 18px; }
+      .score-card { padding: 24px 20px; flex-direction: column; gap: 20px; }
+      .or-top { padding: 22px 20px 18px; } .or-footer-row { padding: 14px 20px; }
+      .nps-picker { grid-template-columns: 1fr 1fr 1fr; }
+      .nps-btn { width: 36px; height: 36px; font-size: 14px; }
+      .calc-scenarios { grid-template-columns: 1fr; }
+      .multipliers-grid { grid-template-columns: 1fr 1fr; }
+      .journey-card { padding: 22px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sticky">
+  <div class="sticky-inner">
+    <span class="sticky-brand">La Nota de tu Tienda</span>
+    <div class="sticky-right">
+      <span class="sticky-info" id="stickyInfo">0 de 5 momentos</span>
+      <div class="sticky-pill" id="stickyPill">—/100</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <header class="eval-header">
+    <div class="brand-row">
+      <div class="brand-dot"></div>
+      <span class="brand-lbl">Outside Retail · Evaluación en tienda</span>
+    </div>
+    <h1>La Nota de tu Tienda</h1>
+    <p>Rellena los datos de la visita, puntúa cada momento y el informe se construye solo.</p>
+    <div class="info-grid">
+      <div class="info-field"><label>Nombre de la tienda</label><input id="inName" type="text" placeholder="Ej. Boutique Sol" /></div>
+      <div class="info-field"><label>Ciudad</label><input id="inCity" type="text" placeholder="Ej. Madrid" /></div>
+      <div class="info-field"><label>Fecha de la visita</label><input id="inDate" type="date" /></div>
+      <div class="info-field"><label>Hora de la visita</label><input id="inTime" type="time" /></div>
+      <div class="info-field"><label>Evaluador</label><input id="inEval" type="text" placeholder="Tu nombre" /></div>
+      <div class="info-field"><label>Persona que me atendió</label><input id="inContact" type="text" placeholder="Nombre si lo sabes" /></div>
+      <div class="info-field"><label>Importe de la visita</label>
+        <div class="ticket-wrap"><input id="inSpent" type="number" min="0" step="0.01" placeholder="0,00" /><span class="ticket-symbol">€</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="intro-banner">
+    <p><strong>Cómo funciona:</strong> Evalúa cada momento como si fueras el cliente. El resultado es una nota de experiencia de 0 a 100 calculada con metodología NPS. 50 = todo pasivo. 100 = todo promotor. Cuanto más arriba, más momentos generan recomendación.</p>
+    <div class="nps-scale-explain">
+      <div class="nps-explain-item det"><div class="dot"></div>1–3 Detractor: genera dudas o mala experiencia</div>
+      <div class="nps-explain-item pas"><div class="dot"></div>4 Pasivo: correcto, sin impacto memorable</div>
+      <div class="nps-explain-item pro"><div class="dot"></div>5 Promotor: generaría una recomendación</div>
+    </div>
+  </div>
+
+  <div class="section-hd" style="margin-top:18px">
+    <h2>Los 5 Momentos</h2>
+    <span id="scoredBadge">0 / 5 evaluados</span>
+  </div>
+
+  <div class="areas-list" id="areasList"></div>
+  <div class="divider"><span>Nota de experiencia generada</span></div>
+  <div id="informe"></div>
+  <div class="footer" id="footerTxt"></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════
+   LOS 5 MOMENTOS
+═══════════════════════════════════════ */
+const AREAS = [
+  {
+    id:"bienvenida", name:"La Bienvenida", step:"Momento 1",
+    question:"¿Cómo hace sentir el equipo al cliente en los primeros 10 segundos?",
+    obsPlaceholder:"¿Te saludaron? ¿Cuándo? ¿Sonó natural o automático? ¿El lenguaje corporal era abierto? ¿Cómo te hizo sentir ese primer momento?",
+    autoHigh:"El equipo se acercó de forma proactiva y con una bienvenida cálida y natural. El cliente se sintió recibido desde el primer segundo.",
+    autoMid: "Hubo saludo, pero llegó tarde o sonó a protocolo. Correcto, pero sin el impacto que genera un promotor.",
+    autoLow: "El cliente entró y no fue recibido. Sin bienvenida no hay conexión, y esa indiferencia inicial genera detractores antes de ver un producto.",
+    fortaleza:"El equipo se acerca de forma proactiva y el cliente se siente bienvenido desde el primer segundo. Este momento ya genera promotores.",
+    oportunidad:"La bienvenida es el primer momento. Uno que genera detractores antes de que empiece la visita real.",
+    accion:{ title:"Acordar esta semana cómo queréis recibir a cada persona que entra.", objetivo:"Que ningún cliente entre sin sentir que es bienvenido en los primeros 10 segundos.", como:"En equipo, decidid una frase de bienvenida corta y real que suene a vosotros. Practicadla hasta que salga sola, sin pensar.", indicador:"Todo el equipo saluda antes de que el cliente llegue al primer producto." },
+    teamQ:"¿Cómo nos gustaría que nos recibieran si entráramos como clientes a nuestra propia tienda?"
+  },
+  {
+    id:"preguntas", name:"Las Preguntas", step:"Momento 2",
+    question:"¿El equipo pregunta antes de hablar de producto?",
+    obsPlaceholder:"¿Hicieron preguntas? ¿Escucharon la respuesta de verdad? ¿Las preguntas iban sobre el cliente o sobre el producto?",
+    autoHigh:"El equipo preguntó con tacto y escuchó de verdad antes de recomendar. La conversación giró en torno al cliente, no al catálogo.",
+    autoMid: "Se hicieron algunas preguntas, pero no las suficientes para entender lo que necesitaba el cliente.",
+    autoLow: "No hubo preguntas reales. El equipo habló de lo que tenía sin saber qué buscaba el cliente. Monólogo, no conversación.",
+    fortaleza:"El equipo pregunta antes de recomendar. Las conversaciones giran en torno al cliente y eso genera promotores.",
+    oportunidad:"Sin preguntas no hay diagnóstico. El equipo recomienda a ciegas y el cliente no se siente entendido.",
+    accion:{ title:"Regla de esta semana: una pregunta antes de cualquier recomendación.", objetivo:"Que el equipo entienda qué necesita el cliente antes de hablar de producto.", como:"Esta semana, nadie recomienda nada sin haber hecho al menos una pregunta. '¿Qué estás buscando hoy?' es suficiente.", indicador:"Cada conversación incluye al menos una pregunta de contexto antes de la primera recomendación." },
+    teamQ:"¿Cuándo fue la última vez que un cliente nos sorprendió contándonos algo que no esperábamos? ¿Les preguntamos lo suficiente?"
+  },
+  {
+    id:"propuesta", name:"La Propuesta", step:"Momento 3",
+    question:"¿Lo que ofrece el equipo tiene que ver con lo que el cliente dijo?",
+    obsPlaceholder:"¿La recomendación encajaba con lo que habías contado? ¿Fue personalizada o genérica? ¿Te ofrecieron alternativas o solo una opción?",
+    autoHigh:"La propuesta fue personalizada y conectó directamente con lo que el cliente había contado. No fue catálogo: fue una recomendación hecha a medida.",
+    autoMid: "La propuesta fue correcta pero genérica. Funcionaba, pero no estaba construida sobre lo que el cliente había dicho.",
+    autoLow: "La propuesta no tenía relación clara con lo que el cliente contó. Una recomendación estándar que el cliente no sintió como suya.",
+    fortaleza:"El equipo conecta lo que escucha con lo que recomienda. La propuesta personalizada es lo que convierte visitas en promotores.",
+    oportunidad:"Una propuesta sin contexto es solo una oferta. El cliente no la siente como suya y raramente genera promotores.",
+    accion:{ title:"Entrenar la conexión entre lo que el cliente dice y lo que el equipo recomienda.", objetivo:"Que cada propuesta sea una respuesta directa a algo que el cliente contó.", como:"Practicad en equipo: antes de recomendar, repetid lo que entendisteis. 'Entiendo que buscas X, por eso te recomiendo Y.'", indicador:"El equipo puede explicar por qué recomienda cada cosa en función de lo que le dijo el cliente." },
+    teamQ:"¿Alguna vez hemos recomendado algo sin estar seguros de que era lo que el cliente necesitaba?"
+  },
+  {
+    id:"confianza", name:"La Confianza", step:"Momento 4",
+    question:"¿El cliente salió con todo claro y sin dudas sin resolver?",
+    obsPlaceholder:"¿Se aseguraron de que lo habías entendido todo? ¿Mostraron empatía real? ¿Hubo un momento de verificación? ¿Quedaste con algo sin resolver?",
+    autoHigh:"El equipo se aseguró de que el cliente lo había entendido todo. Mostró empatía y no cerró la conversación hasta tener la certeza de que el cliente estaba tranquilo.",
+    autoMid: "Se resolvieron las dudas evidentes, pero sin un momento claro de verificación. El cliente pudo salir con preguntas sin hacer.",
+    autoLow: "No hubo verificación. La conversación se cerró antes de tiempo y el cliente no tuvo oportunidad real de preguntar.",
+    fortaleza:"El equipo no da nada por supuesto. La verificación y la empatía generan la confianza que convierte clientes en promotores.",
+    oportunidad:"Un cliente con dudas sin resolver no recomienda. La verificación convierte el interés en confianza.",
+    accion:{ title:"Añadir una pregunta de verificación en cada conversación antes del cierre.", objetivo:"Asegurarse de que el cliente sale con todo claro.", como:"Antes de cerrar: '¿Tienes alguna duda sobre lo que hemos visto?' Simple y efectivo.", indicador:"Ningún cliente sale con dudas visibles sin haber tenido la oportunidad de preguntarlas." },
+    teamQ:"¿Alguna vez un cliente ha vuelto con una queja que ya debería haber resuelto en tienda? ¿Qué falló?"
+  },
+  {
+    id:"pasos", name:"Los Pasos Siguientes", step:"Momento 5",
+    question:"¿Sabe el cliente qué hacer a continuación y tiene ganas de volver?",
+    obsPlaceholder:"¿Te explicaron qué podías hacer después? ¿La despedida fue cálida? ¿Saliste con un motivo concreto para volver o para recomendar la tienda?",
+    autoHigh:"El equipo cerró la visita con un motivo concreto para continuar. El cliente salió con pasos claros, con ganas de volver y con algo que contar.",
+    autoMid: "Hubo despedida, pero sin orientación sobre qué hacer después. El cliente salió sin un motivo claro para volver.",
+    autoLow: "La visita terminó sin cierre real. Sin pasos siguientes, la relación con el cliente termina en la puerta.",
+    fortaleza:"El equipo cierra cada visita conectando al cliente con lo que viene después. Eso convierte visitas únicas en relaciones duraderas.",
+    oportunidad:"La visita de hoy es solo una parte de la relación. Sin pasos siguientes, el cliente no tiene motivo para recomendar ni para volver.",
+    accion:{ title:"Acordar un ritual de cierre que incluya siempre un paso siguiente concreto.", objetivo:"Que ningún cliente salga sin una invitación real a continuar.", como:"Al final de cada interacción, el equipo menciona algo concreto: una próxima visita, un servicio, una novedad.", indicador:"El cliente sale siempre con al menos una razón concreta para volver." },
+    teamQ:"¿Qué le decimos a los clientes cuando se van? ¿Les estamos dando un motivo real para recomendar la tienda?"
+  }
+];
+
+/* ═══════════════════════════════════════
+   ESTADO
+═══════════════════════════════════════ */
+const S = {
+  name:"", city:"", date:"", time:"", evaluator:"", contact:"", spent:"",
+  scores: Array(5).fill(null),
+  obs:    Array(5).fill(""),
+  calcClients: 200,
+  calcTicket:  45
+};
+
+/* ═══════════════════════════════════════
+   PUNTUACIÓN 0–100
+   
+   Metodología: NPS interno (-100 a +100)
+   Fórmula NPS: (% Promotores − % Detractores) × 100
+   Conversión a escala 0–100: (NPS + 100) / 2
+   
+   0  = todos Detractores (NPS −100)
+   50 = todos Pasivos     (NPS 0)
+   100 = todos Promotores (NPS +100)
+   
+   El 50 es la neutralidad. Arriba suman, abajo restan.
+═══════════════════════════════════════ */
+const BENCHMARK = 58; // equivale a NPS +16, media del sector
+
+function calcNPS() {
+  const sc=S.scores.filter(x=>x!==null);
+  if(!sc.length) return null;
+  const p=sc.filter(s=>s===5).length, d=sc.filter(s=>s<=3).length;
+  return Math.round(((p-d)/sc.length)*100);
+}
+function calcScore() {
+  const nps=calcNPS();
+  if(nps===null) return null;
+  return Math.round((nps+100)/2);
+}
+function getNPSBreakdown() {
+  const sc=S.scores.filter(x=>x!==null);
+  return {p:sc.filter(s=>s===5).length, pa:sc.filter(s=>s===4).length, d:sc.filter(s=>s<=3).length, n:sc.length};
+}
+
+function scoreColor(s)    { return s===5?"green":s===4?"yellow":"red"; }
+function scoreColorHex(s) { return s===5?"#1a7a32":s===4?"#8a5a00":"#c0392b"; }
+function scoreLabel(s)    { return s===5?"Promotor":s===4?"Pasivo":"Detractor"; }
+function autoComment(i,s) { const a=AREAS[i]; return s===5?a.autoHigh:s===4?a.autoMid:a.autoLow; }
+
+/* Color basado en nota 0–100 */
+function noteColor(d)  { return d>=70?"green":d>=50?"yellow":"red"; }
+function noteStroke(d) { return d>=70?"var(--green)":d>=50?"var(--yellow)":"var(--red)"; }
+function noteHex(d)    { return d>=70?"#1a7a32":d>=50?"#8a5a00":"#c0392b"; }
+
+function getLabel(d) {
+  if(d>=85) return {txt:"Todos los momentos generan promotores", cls:"bg-green"};
+  if(d>=70) return {txt:"Más promotores que detractores",        cls:"bg-green"};
+  if(d>=60) return {txt:"Equilibrado, con recorrido claro",      cls:"bg-yellow"};
+  if(d>=50) return {txt:"Zona pasiva — sin impacto memorable",   cls:"bg-yellow"};
+  if(d>=35) return {txt:"Hay margen de mejora importante",        cls:"bg-red"};
+  return           {txt:"Hay oportunidades concretas de mejora",  cls:"bg-red"};
+}
+
+function getMensaje(d) {
+  if(d>=85) return {bg:"var(--green-bg)",color:"#1a7a32", txt:"Esta tienda genera promotores de forma consistente. Cada momento suma. El objetivo ahora es mantener el nivel y proteger lo que ya funciona bien."};
+  if(d>=70) return {bg:"var(--green-bg)",color:"#1a7a32", txt:"Hay más momentos que generan promotores que detractores. Con trabajo en los puntos flojos, esta nota puede subir más en pocas semanas."};
+  if(d>=60) return {bg:"var(--yellow-bg)",color:"#8a5a00",txt:"La tienda está en zona equilibrada. Los momentos pasivos son oportunidades reales: convertir un pasivo en promotor sube la nota varios puntos."};
+  if(d>=50) return {bg:"var(--yellow-bg)",color:"#8a5a00",txt:"La tienda no genera detractores, pero tampoco promotores. El cliente sale sin un motivo especial para recomendar ni para volver. La zona pasiva es zona de riesgo silencioso."};
+  if(d>=35) return {bg:"var(--red-bg)",color:"#c0392b",   txt:"Hay puntos concretos que pueden estar reduciendo la recomendación y la repetición. Son identificables y corregibles. El foco en los momentos clave puede cambiar esto rápido."};
+  return           {bg:"var(--red-bg)",color:"#c0392b",   txt:"Hay momentos de la experiencia que pueden estar dejando una sensación mejorable en algunos clientes. Hay un punto de partida claro y la mejora es alcanzable con cambios concretos."};
+}
+
+function fmtDate(d) {
+  if(!d) return "";
+  const [y,m,day]=d.split("-");
+  const ms=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  return `${parseInt(day)} de ${ms[parseInt(m)-1]} de ${y}`;
+}
+function fmtEur(n) { return new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n); }
+
+/* ═══════════════════════════════════════
+   CALCULADORA
+═══════════════════════════════════════ */
+function calcImpact(clients, ticket) {
+  const cRC=Math.round(clients*.03), cNC=Math.round(clients*.01), cM=(cRC+cNC)*ticket;
+  const mRC=Math.round(clients*.05), mNC=Math.round(clients*.02), mM=(mRC+mNC)*ticket;
+  return {c:{rc:cRC,nc:cNC,m:cM,y:cM*12}, m:{rc:mRC,nc:mNC,m:mM,y:mM*12}};
+}
+function updateCalcOutput() {
+  const clients=parseInt(document.getElementById('calcClients')?.value)||200;
+  const ticket =parseFloat(document.getElementById('calcTicket')?.value)||45;
+  S.calcClients=clients; S.calcTicket=ticket;
+  const imp=calcImpact(clients,ticket);
+  const out=document.getElementById('calcOutput'); if(!out) return;
+  out.innerHTML=`
+    <div class="calc-scenarios">
+      <div class="calc-scenario conserv">
+        <div class="calc-sc-label">Escenario conservador</div>
+        <div class="calc-sc-desc">3% más clientes repiten · 1% nuevos por referencia</div>
+        <div class="calc-sc-clients">+${imp.c.rc+imp.c.nc} clientes más al mes</div>
+        <div class="calc-sc-amounts"><span class="calc-sc-monthly">${fmtEur(imp.c.m)}/mes</span><span style="color:var(--text-3)">→</span><span class="calc-sc-yearly">${fmtEur(imp.c.y)}</span><span class="calc-sc-year-lbl">al año</span></div>
+      </div>
+      <div class="calc-scenario moder">
+        <div class="calc-sc-label">Escenario moderado</div>
+        <div class="calc-sc-desc">5% más clientes repiten · 2% nuevos por referencia</div>
+        <div class="calc-sc-clients">+${imp.m.rc+imp.m.nc} clientes más al mes</div>
+        <div class="calc-sc-amounts"><span class="calc-sc-monthly">${fmtEur(imp.m.m)}/mes</span><span style="color:var(--text-3)">→</span><span class="calc-sc-yearly">${fmtEur(imp.m.y)}</span><span class="calc-sc-year-lbl">al año</span></div>
+      </div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════
+   RESUMEN EN 30 SEGUNDOS
+═══════════════════════════════════════ */
+function buildSummary30(score, sorted, worst) {
+  if(!sorted.length) return "";
+
+  const nc = noteColor(score);
+  const scoreColor30 = nc==="green"?"#1a7a32":nc==="yellow"?"#8a5a00":"#c0392b";
+
+  // Todos los promotores (score === 5)
+  const pros = sorted.filter(x=>x.s===5);
+  // Todos los detractores (score <= 3); si no hay, todos los pasivos
+  const dets = worst.filter(x=>x.s<=3);
+  const opps = dets.length ? dets : worst.filter(x=>x.s===4);
+
+  // Acción prioritaria: el peor área
+  const bottom = worst[0];
+
+  const proHTML = pros.length
+    ? `<div class="s30-tags">${pros.map(x=>`<span class="s30-tag s30-tag-pro">${AREAS[x.i].name}</span>`).join("")}</div>`
+    : `<span class="s30-empty">Aún sin momentos promotores</span>`;
+
+  const oppHTML = opps.length
+    ? `<div class="s30-tags">${opps.map(x=>`<span class="s30-tag ${x.s<=3?"s30-tag-det":"s30-tag-pas"}">${AREAS[x.i].name}</span>`).join("")}</div>`
+    : `<span class="s30-empty">Sin oportunidades urgentes</span>`;
+
+  return `
+    <div class="s30">
+      <div class="s30-hd">
+        <span class="s30-eyebrow">Resumen en 30 segundos</span>
+        <span class="s30-note">Para quien va directo al grano</span>
+      </div>
+      <table class="s30-table">
+        <tr>
+          <td>Nota de experiencia</td>
+          <td><span class="s30-score" style="color:${scoreColor30}">${score}/100</span></td>
+        </tr>
+        <tr>
+          <td>Lo que funciona bien</td>
+          <td>${proHTML}</td>
+        </tr>
+        <tr>
+          <td>Dónde está el margen</td>
+          <td>${oppHTML}</td>
+        </tr>
+        <tr>
+          <td>Acción prioritaria</td>
+          <td>${bottom ? AREAS[bottom.i].accion.title : "—"}</td>
+        </tr>
+        <tr>
+          <td>Siguiente paso</td>
+          <td><span class="s30-next">¿Subimos esta nota? · 20 min · gratuito</span></td>
+        </tr>
+      </table>
+    </div>`
+}
+
+/* ═══════════════════════════════════════
+   MAPA DE RECORRIDO
+═══════════════════════════════════════ */
+function buildJourney() {
+  const shortNames=["Bienvenida","Preguntas","Propuesta","Confianza","Pasos Sig."];
+  const nodes=AREAS.map((a,i)=>({
+    name:shortNames[i], step:a.step,
+    score:S.scores[i], color:S.scores[i]!==null?scoreColor(S.scores[i]):null,
+    label:S.scores[i]!==null?scoreLabel(S.scores[i]):null
+  }));
+  const pros=nodes.filter(n=>n.color==="green").length;
+  const pas =nodes.filter(n=>n.color==="yellow").length;
+  const det =nodes.filter(n=>n.color==="red").length;
+  const nodesHTML=nodes.map((node,i)=>`
+    ${i>0?`<div class="journey-connector${node.color?" jconn-"+node.color:""}">›</div>`:""}
+    <div class="journey-node">
+      <div class="journey-dot ${node.color?"jd-"+node.color:"jd-empty"}">${node.score!==null?node.score:"·"}</div>
+      <div class="journey-name">${node.name}</div>
+      <div class="journey-step">${node.step}</div>
+      <div class="journey-class ${node.color?"jclass-"+node.color:"jclass-empty"}">${node.label||"Sin evaluar"}</div>
+    </div>`).join("");
+  const tags=[
+    pros>0?`<div class="journey-tag jtag-pro">${pros} ${pros===1?"Promotor":"Promotores"}</div>`:"",
+    pas >0?`<div class="journey-tag jtag-pas">${pas}  ${pas===1?"Pasivo":"Pasivos"}</div>`:"",
+    det >0?`<div class="journey-tag jtag-det">${det}  ${det===1?"Detractor":"Detractores"}</div>`:""
+  ].join("");
+  return `<div class="journey-scroll"><div class="journey-track">${nodesHTML}</div></div>${tags?`<div class="journey-summary">${tags}</div>`:""}`;
+}
+
+/* ═══════════════════════════════════════
+   RENDER SCORING
+═══════════════════════════════════════ */
+function btnClass(val,score) {
+  if(score===null||val!==score) return "nps-btn";
+  return score===5?"nps-btn sel-pro":score===4?"nps-btn sel-pas":"nps-btn sel-det";
+}
+function renderScoring() {
+  const list=document.getElementById("areasList");
+  list.innerHTML=AREAS.map((area,i)=>{
+    const s=S.scores[i];
+    const c=s!==null?scoreColor(s):"";
+    const fc=c==="green"?"var(--green)":c==="yellow"?"var(--yellow)":c==="red"?"var(--red)":"transparent";
+    const bs=s!==null?(c==="green"?"background:var(--green-bg);color:#1a7a32":c==="yellow"?"background:var(--yellow-bg);color:#8a5a00":"background:var(--red-bg);color:#c0392b"):"";
+    const det=[1,2,3].map(v=>`<button class="${btnClass(v,s)}" data-area="${i}" data-val="${v}">${v}</button>`).join("");
+    return `
+    <div class="area-card${s!==null?" scored":""}" id="card-${i}">
+      <div class="area-top">
+        <div>
+          <div class="area-title-row"><span class="area-name">${area.name}</span><span class="area-step">${area.step}</span></div>
+          <div class="area-q">${area.question}</div>
+        </div>
+        <div class="area-badge" id="badge-${i}" style="${bs}">
+          ${s!==null?`<span class="area-badge-label">${scoreLabel(s)}</span><span class="area-badge-score">${s}</span>`:'<span class="area-badge-score" style="color:var(--text-3)">—</span>'}
+        </div>
+      </div>
+      <div class="nps-picker">
+        <div class="nps-zone det"><div class="nps-zone-lbl">Detractor</div><div class="nps-zone-desc">Genera dudas o<br>mala experiencia</div><div class="nps-btns">${det}</div></div>
+        <div class="nps-zone pas"><div class="nps-zone-lbl">Pasivo</div><div class="nps-zone-desc">Correcto,<br>sin impacto</div><div class="nps-btns"><button class="${btnClass(4,s)}" data-area="${i}" data-val="4">4</button></div></div>
+        <div class="nps-zone pro"><div class="nps-zone-lbl">Promotor</div><div class="nps-zone-desc">Genera<br>recomendación</div><div class="nps-btns"><button class="${btnClass(5,s)}" data-area="${i}" data-val="5">5</button></div></div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="fill-${i}" style="width:${s!==null?(s/5*100):0}%;background:${fc}"></div></div>
+      <div class="obs-label">Observación personal <span class="obs-req">Lo que hace que el informe sea tuyo</span></div>
+      <textarea class="obs-textarea${S.obs[i]?"":s!==null?" warn":""}" id="obs-${i}" data-area="${i}" placeholder="${area.obsPlaceholder}" rows="3">${S.obs[i]}</textarea>
+      <div class="obs-chars" id="chars-${i}">${S.obs[i].length} caracteres</div>
+    </div>`;
+  }).join("");
+
+  list.addEventListener("click",e=>{
+    const btn=e.target.closest(".nps-btn"); if(!btn) return;
+    const i=parseInt(btn.dataset.area), val=parseInt(btn.dataset.val);
+    S.scores[i]=val; refreshCard(i); refreshReport();
+  });
+  list.addEventListener("input",e=>{
+    if(!e.target.classList.contains("obs-textarea")) return;
+    const i=parseInt(e.target.dataset.area);
+    S.obs[i]=e.target.value;
+    document.getElementById(`chars-${i}`).textContent=e.target.value.length+" caracteres";
+    e.target.classList.toggle("warn",e.target.value.trim().length<10);
+    refreshReport();
+  });
+}
+
+function refreshCard(i) {
+  const s=S.scores[i], c=scoreColor(s);
+  const fill=document.getElementById(`fill-${i}`);
+  fill.style.width=(s/5*100)+"%";
+  fill.style.background=c==="green"?"var(--green)":c==="yellow"?"var(--yellow)":"var(--red)";
+  const badge=document.getElementById(`badge-${i}`);
+  badge.style.cssText=c==="green"?"background:var(--green-bg);color:#1a7a32":c==="yellow"?"background:var(--yellow-bg);color:#8a5a00":"background:var(--red-bg);color:#c0392b";
+  badge.innerHTML=`<span class="area-badge-label">${scoreLabel(s)}</span><span class="area-badge-score">${s}</span>`;
+  document.getElementById(`card-${i}`).classList.add("scored");
+  document.getElementById(`card-${i}`).querySelectorAll(".nps-btn").forEach(b=>{b.className=btnClass(parseInt(b.dataset.val),s);});
+  const n=S.scores.filter(x=>x!==null).length;
+  document.getElementById("scoredBadge").textContent=`${n} / 5 evaluados`;
+  document.getElementById("stickyInfo").textContent=`${n} de 5 momentos`;
+}
+
+/* ═══════════════════════════════════════
+   RENDER INFORME
+═══════════════════════════════════════ */
+function refreshReport() {
+  const n=S.scores.filter(x=>x!==null).length;
+  const el=document.getElementById("informe");
+  const pill=document.getElementById("stickyPill");
+
+  if(n===0){
+    el.innerHTML=`<div class="placeholder-card"><div style="font-size:36px">📋</div><h3>La nota de experiencia aparece aquí</h3><p>Puntúa el primer momento y verás cómo empieza a construirse.</p><div class="ph-dots">${Array.from({length:5},(_,i)=>`<div class="ph-dot${i<n?" on":""}"></div>`).join("")}</div></div>`;
+    pill.textContent="—/100"; pill.style.cssText="";
+    updateFooter(); return;
+  }
+
+  const score=calcScore(), nc=noteColor(score);
+  const {txt,cls}=getLabel(score), msg=getMensaje(score), bd=getNPSBreakdown();
+
+  // Sticky pill
+  pill.textContent=score+"/100";
+  pill.style.cssText=nc==="green"?"background:var(--green-bg);color:#1a7a32;border-color:var(--green)":nc==="yellow"?"background:var(--yellow-bg);color:#8a5a00;border-color:var(--yellow)":"background:var(--red-bg);color:#c0392b;border-color:var(--red)";
+
+  // Ring: score de 0 a 100 → fill de 0% a 100%
+  const ringR=50, ringC=2*Math.PI*ringR;
+  const ringOffset=ringC*(1-score/100);
+  const stroke=noteStroke(score);
+
+  // Scale marker position (left %)
+  const markerLeft=score;
+  const markerBorder=noteHex(score);
+
+  // Benchmark diff
+  const diff=score-BENCHMARK, diffColor=diff>=0?"#1a7a32":"#c0392b";
+
+  const sorted=S.scores.map((s,i)=>({s,i})).filter(x=>x.s!==null).sort((a,b)=>b.s-a.s);
+  const worst=[...sorted].reverse();
+  const promoters=sorted.filter(x=>x.s===5);
+  const detractors=sorted.filter(x=>x.s<=3);
+  const passives=sorted.filter(x=>x.s===4);
+  const worstArea=worst[0];
+  const teamAreas=worst.slice(0,3).map(x=>x.i);
+  const obsEntries=S.scores.map((s,i)=>{
+    if(s===null) return null;
+    const text=S.obs[i].trim();
+    return {i,s,text,isAuto:text.length<10};
+  }).filter(Boolean);
+  const imp=calcImpact(S.calcClients,S.calcTicket);
+
+  // Meta
+  const metaItems=[];
+  if(S.name)    metaItems.push(`<div class="rmeta-item"><span class="rmlabel">Tienda</span><span class="rmval">${S.name}</span></div>`);
+  if(S.city)    metaItems.push(`<div class="rmeta-item"><span class="rmlabel">Ciudad</span><span class="rmval">${S.city}</span></div>`);
+  if(S.date){let ds=fmtDate(S.date); if(S.time) ds+=` · ${S.time}h`; metaItems.push(`<div class="rmeta-item"><span class="rmlabel">Visita</span><span class="rmval">${ds}</span></div>`);}
+  if(S.evaluator) metaItems.push(`<div class="rmeta-item"><span class="rmlabel">Evaluador</span><span class="rmval">${S.evaluator}</span></div>`);
+  if(S.contact)   metaItems.push(`<div class="rmeta-item"><span class="rmlabel">Atendido por</span><span class="rmval">${S.contact}</span></div>`);
+  if(S.spent)     metaItems.push(`<div class="rmeta-item"><span class="rmlabel">Ticket visita</span><span class="rmval">${parseFloat(S.spent).toFixed(2).replace('.',',')} €</span></div>`);
+
+  el.innerHTML=`
+    <div class="print-bar">
+      <button class="btn-print" onclick="window.print()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Guardar PDF
+      </button>
+    </div>
+
+    ${metaItems.length?`<div class="report-meta">${metaItems.join('<div class="rmeta-sep"></div>')}</div>`:""}
+
+    ${buildSummary30(score, sorted, worst)}
+
+    <!-- NOTA GLOBAL -->
+    <div class="score-card">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 114 114">
+          <circle class="ring-bg" cx="57" cy="57" r="${ringR}"/>
+          <circle class="ring-fg" cx="57" cy="57" r="${ringR}"
+            style="stroke:${stroke};stroke-dasharray:${ringC};stroke-dashoffset:${ringOffset}"/>
+        </svg>
+        <div class="ring-text">
+          <span class="ring-num" style="color:${stroke}">${score}</span>
+          <span class="ring-den">de 100</span>
+        </div>
+      </div>
+      <div class="score-meta">
+        <span class="score-lbl ${cls}">${txt}</span>
+        <div class="score-title">Nota de experiencia · ${S.name||"La tienda"}</div>
+        <p class="score-sub">${n<5?`${n} de 5 momentos evaluados.`:"Los 5 momentos evaluados. Nota definitiva."}</p>
+
+        <!-- Escala visual 0–50–100 -->
+        <div class="score-scale" style="margin-bottom:14px">
+          <span class="scale-label-0">0</span>
+          <div class="scale-track">
+            <div class="scale-marker" style="left:${markerLeft}%;border-color:${markerBorder}"></div>
+          </div>
+          <span class="scale-label-100">100</span>
+        </div>
+
+        <div class="nps-breakdown">
+          <div class="nps-bd-item pro"><div class="bddot"></div>${bd.p} ${bd.p===1?"Promotor":"Promotores"}</div>
+          <div class="nps-bd-item pas"><div class="bddot"></div>${bd.pa} ${bd.pa===1?"Pasivo":"Pasivos"}</div>
+          <div class="nps-bd-item det"><div class="bddot"></div>${bd.d} ${bd.d===1?"Detractor":"Detractores"}</div>
+        </div>
+        <div class="bench-row">
+          <span class="bench-item">Nota <span>${score}/100</span></span>
+          <span class="bench-item">Media evaluadas <span>${BENCHMARK}/100</span></span>
+          <span class="bench-diff" style="color:${diffColor}">${(diff>=0?"+":"")+diff} puntos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENSAJE -->
+    <div class="msg-card" style="background:${msg.bg};color:${msg.color}">${msg.txt}</div>
+
+    <!-- MAPA DE RECORRIDO -->
+    <div class="journey-card block">
+      <div class="journey-title">El recorrido de la visita</div>
+      <div class="journey-sub">Los 5 momentos en el orden en que los vivió el cliente. Cada punto muestra si ese momento generó un promotor, un pasivo o un detractor.</div>
+      ${buildJourney()}
+    </div>
+
+    <!-- POR QUÉ IMPORTA -->
+    <div class="why-card block">
+      <div class="why-eyebrow">Por qué importa esta nota</div>
+      <div class="why-title">Una mejor experiencia no solo "gusta" más.<br>Se comporta diferente en la caja.</div>
+      <p class="why-text">En retail, los clientes promotores no solo valoran mejor la experiencia. Compran más, vuelven más, recomiendan más y perdonan los errores. Esto no es marketing: es comportamiento documentado.</p>
+      <div class="multipliers-grid">
+        <div class="multiplier-card m1"><div class="multiplier-num">3,2×</div><div class="multiplier-label">más probable de volver a comprar</div><div class="multiplier-sub">promotor vs. detractor</div></div>
+        <div class="multiplier-card m2"><div class="multiplier-num">7,3×</div><div class="multiplier-label">más probable de probar algo nuevo</div><div class="multiplier-sub">promotor vs. detractor</div></div>
+        <div class="multiplier-card m3"><div class="multiplier-num">5×</div><div class="multiplier-label">más probable de perdonar un error</div><div class="multiplier-sub">promotor vs. detractor</div></div>
+        <div class="multiplier-card m4"><div class="multiplier-num">4,4×</div><div class="multiplier-label">más probable de confiar en lo que recomiendas</div><div class="multiplier-sub">promotor vs. detractor</div></div>
+      </div>
+      <div class="why-source">Fuente: XM Institute / Qualtrics. Análisis sobre 10.000 consumidores y 331 empresas en 20 industrias, sector Retail.</div>
+    </div>
+
+    <!-- CALCULADORA -->
+    <div class="calc-card block">
+      <div class="calc-eyebrow">Calculadora de impacto</div>
+      <div class="calc-title">¿Cuánto podría valer mejorar la experiencia?</div>
+      <div class="calc-warning">Escenario orientativo basado en datos del sector. No es una garantía.</div>
+      <div class="calc-inputs-row">
+        <div class="calc-field"><label>Clientes al mes</label><div class="calc-input-wrap"><input type="number" id="calcClients" value="${S.calcClients}" min="10" max="10000" step="10"/></div></div>
+        <div class="calc-field"><label>Ticket medio</label><div class="calc-input-wrap"><input type="number" id="calcTicket" value="${S.calcTicket}" min="5" max="5000" step="5"/><span class="calc-input-unit">€</span></div></div>
+      </div>
+      <div id="calcOutput">
+        <div class="calc-scenarios">
+          <div class="calc-scenario conserv"><div class="calc-sc-label">Escenario conservador</div><div class="calc-sc-desc">3% más clientes repiten · 1% nuevos por referencia</div><div class="calc-sc-clients">+${imp.c.rc+imp.c.nc} clientes más al mes</div><div class="calc-sc-amounts"><span class="calc-sc-monthly">${fmtEur(imp.c.m)}/mes</span><span style="color:var(--text-3)">→</span><span class="calc-sc-yearly">${fmtEur(imp.c.y)}</span><span class="calc-sc-year-lbl">al año</span></div></div>
+          <div class="calc-scenario moder"><div class="calc-sc-label">Escenario moderado</div><div class="calc-sc-desc">5% más clientes repiten · 2% nuevos por referencia</div><div class="calc-sc-clients">+${imp.m.rc+imp.m.nc} clientes más al mes</div><div class="calc-sc-amounts"><span class="calc-sc-monthly">${fmtEur(imp.m.m)}/mes</span><span style="color:var(--text-3)">→</span><span class="calc-sc-yearly">${fmtEur(imp.m.y)}</span><span class="calc-sc-year-lbl">al año</span></div></div>
+        </div>
+      </div>
+      <div class="calc-footer">El cálculo asume que una mejora en la experiencia cliente convierte un porcentaje de clientes pasivos y detractores en clientes que repiten y recomiendan. Basado en datos de XM Institute sobre retail. El impacto real depende del ticket, la recurrencia, la competencia y la capacidad del equipo.</div>
+    </div>
+
+    <!-- LO QUE VISTE HOY -->
+    ${obsEntries.some(e=>!e.isAuto)?`
+    <div class="block">
+      <div class="section-hd"><h2>Lo que viste hoy</h2><span>Tus observaciones directas</span></div>
+      <div class="obs-report"><div class="obs-entries">
+        ${obsEntries.map((e,idx)=>`
+        ${idx>0?'<div class="obs-sep"></div>':""}
+        <div>
+          <div class="obs-entry-head"><span class="obs-entry-pill bg-${scoreColor(e.s)}">${scoreLabel(e.s)} · ${e.s}</span><span class="obs-entry-area">${AREAS[e.i].name} · ${AREAS[e.i].step}</span></div>
+          <p class="obs-entry-text">"${e.text}"</p>
+        </div>`).join("")}
+      </div></div>
+    </div>`:""}
+
+    <!-- PROMOTORES -->
+    ${promoters.length>0?`
+    <div class="block">
+      <div class="section-hd"><h2>Momentos que generan promotores</h2><span>Puntuación 5</span></div>
+      <div class="insight-grid">${promoters.map(x=>`<div class="insight-card"><div class="insight-icon ig">✦</div><p>${AREAS[x.i].fortaleza}</p><span>${AREAS[x.i].name} · ${AREAS[x.i].step}</span></div>`).join("")}</div>
+    </div>`:""}
+
+    <!-- DETRACTORES / PASIVOS -->
+    ${(detractors.length>0||passives.length>0)?`
+    <div class="block">
+      <div class="section-hd"><h2>${detractors.length>0?"Momentos con mayor margen de mejora":"Momentos en zona pasiva"}</h2><span>${detractors.length>0?"Dónde está el trabajo concreto":"Puntuación 4 — sin impacto aún"}</span></div>
+      <div class="insight-grid">${(detractors.length>0?detractors:passives).map(x=>`<div class="insight-card"><div class="insight-icon iy">→</div><p>${AREAS[x.i].oportunidad}</p><span>${AREAS[x.i].name} · ${AREAS[x.i].step}</span></div>`).join("")}</div>
+    </div>`:""}
+
+    <!-- ACCIÓN -->
+    ${worstArea!==undefined?`
+    <div class="block">
+      <div class="section-hd"><h2>Empieza aquí esta semana</h2><span>Una acción, no diez</span></div>
+      <div class="action-hero">
+        <div class="ah-eyebrow">Prioridad número 1 · ${scoreLabel(worstArea.s)}</div>
+        <div class="ah-title">${AREAS[worstArea.i].accion.title}</div>
+        <div class="ah-area">${AREAS[worstArea.i].name} · ${AREAS[worstArea.i].step} · Puntuación ${worstArea.s}</div>
+        <div class="ah-rows">
+          <div class="ah-row"><label>Por qué empezar aquí</label><p>${AREAS[worstArea.i].accion.objetivo}</p></div>
+          <div class="ah-row"><label>Cómo hacerlo esta semana</label><p>${AREAS[worstArea.i].accion.como}</p></div>
+          <div class="ah-row"><label>Cómo saber que está funcionando</label><div class="ah-indicator">${AREAS[worstArea.i].accion.indicador}</div></div>
+        </div>
+      </div>
+    </div>`:""}
+
+    <!-- EQUIPO -->
+    <div class="block">
+      <div class="section-hd"><h2>Tres preguntas para tu equipo</h2><span>Para la próxima reunión</span></div>
+      <div class="team-card">
+        <p class="team-intro">No uses este informe para señalar lo que está mal. Úsalo para abrir una conversación. Estas preguntas están pensadas para que el equipo llegue solo a las respuestas importantes.</p>
+        <div class="team-qs">${teamAreas.slice(0,3).map((ai,idx)=>`
+          <div class="team-q"><div class="team-q-num">${idx+1}</div><div><p>${AREAS[ai].teamQ}</p><div class="team-q-area">${AREAS[ai].name} · ${AREAS[ai].step}</div></div></div>`).join("")}
+        </div>
+      </div>
+    </div>
+
+    <!-- OUTSIDE RETAIL -->
+    <div class="or-wrap block">
+      <div class="or-top">
+        <div class="or-eyebrow">Outside Retail</div>
+        <div class="or-title">Esto es solo el principio.</div>
+        <p class="or-desc">Hoy hemos evaluado los Pasos de Servicio. Hay nueve bloques más que determinan si un negocio de retail funciona de verdad a largo plazo.</p>
+      </div>
+      <div class="or-grid">
+        <div class="or-card done"><div class="or-card-head"><span class="or-num">✓</span><span class="or-pill done">Evaluado hoy</span></div><div class="or-card-name">Pasos de Servicio</div><div class="or-card-text">Los 5 momentos que definen si un cliente compra, vuelve y recomienda.</div></div>
+        <div class="or-card pending"><div class="or-card-head"><span class="or-num">02</span><span class="or-pill pending">Sin evaluar</span></div><div class="or-card-name">Recorrido del Cliente</div><div class="or-card-text">Cómo vive el cliente cada punto de contacto, de principio a fin.</div></div>
+        <div class="or-card pending"><div class="or-card-head"><span class="or-num">03</span><span class="or-pill pending">Sin evaluar</span></div><div class="or-card-name">Merchandising</div><div class="or-card-text">Cómo presentas y comunicas el producto dentro y fuera de la tienda.</div></div>
+        <div class="or-card pending"><div class="or-card-head"><span class="or-num">04</span><span class="or-pill pending">Sin evaluar</span></div><div class="or-card-name">Tecnología e IA</div><div class="or-card-text">Qué herramientas digitales pueden hacer tu negocio más eficiente.</div></div>
+        <div class="or-card pending"><div class="or-card-head"><span class="or-num">05</span><span class="or-pill pending">Sin evaluar</span></div><div class="or-card-name">People</div><div class="or-card-text">Cómo seleccionas, formas, gestionas y mantienes a tu equipo.</div></div>
+        <div class="or-card pending"><div class="or-card-head"><span class="or-num">06</span><span class="or-pill pending">Sin evaluar</span></div><div class="or-card-name">Schedule</div><div class="or-card-text">Cómo organizas los turnos para que el negocio rinda cuando más importa.</div></div>
+        <div class="or-card pending"><div class="or-card-head"><span class="or-num">07</span><span class="or-pill pending">Sin evaluar</span></div><div class="or-card-name">Preservation</div><div class="or-card-text">Cómo proteges y haces sostenible tu negocio a largo plazo.</div></div>
+        <div class="or-card pending"><div class="or-card-head"><span class="or-num">08</span><span class="or-pill pending">Sin evaluar</span></div><div class="or-card-name">Liderazgo visible</div><div class="or-card-text">Si el responsable modela con su presencia lo que quiere de su equipo.</div></div>
+        <div class="or-card pending"><div class="or-card-head"><span class="or-num">09</span><span class="or-pill pending">Sin evaluar</span></div><div class="or-card-name">Presencia digital</div><div class="or-card-text">Si lo que el cliente ve online tiene coherencia con lo que vive dentro.</div></div>
+        <div class="or-card pending"><div class="or-card-head"><span class="or-num">10</span><span class="or-pill pending">Sin evaluar</span></div><div class="or-card-name">Fidelización activa</div><div class="or-card-text">Si la tienda genera motivos reales para que el cliente vuelva y recomiende.</div></div>
+      </div>
+      <div class="or-footer-row">
+        <span class="or-footer-txt">1 de 10 bloques evaluados</span>
+        <a href="#" class="or-footer-link">Ver diagnóstico completo <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-card">
+      <div class="cta-eyebrow">Siguiente paso · Sin coste</div>
+      <h2 class="cta-title">¿Quieres que te ayude a subir esta nota en los próximos 30 días?</h2>
+      <p class="cta-text">
+        La primera conversación es gratuita. No es para hablar del informe: es para acordar qué cambia esta semana.
+      </p>
+      <div class="cta-bullets">
+        <div class="cta-bullet"><div class="cta-bullet-dot"></div><span>Identificamos el momento más urgente y acordamos cómo trabajarlo con el equipo.</span></div>
+        <div class="cta-bullet"><div class="cta-bullet-dot"></div><span>Te dejo un plan concreto para las próximas 4 semanas. No un PDF de 40 páginas: tres acciones aplicables.</span></div>
+        <div class="cta-bullet"><div class="cta-bullet-dot"></div><span>Si después quieres seguir trabajando juntos, hablamos. Si no, te llevas el plan igualmente.</span></div>
+      </div>
+      <div class="cta-bottom">
+        <div class="cta-bottom-left">
+          <a href="mailto:" class="btn-white">
+            Quiero subir esta nota — gratis
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <div class="cta-free-note">Sin coste · Sin compromiso · La nota puede subir</div>
+        </div>
+        <div class="cta-contact">
+          <a href="mailto:helioxintelligence@gmail.com">helioxintelligence@gmail.com</a>
+          <a href="https://wa.me/34600000000">WhatsApp: +34 600 000 000</a>
+        </div>
+      </div>
+    </div>
+  `;
+
+  setTimeout(()=>{
+    const cc=document.getElementById('calcClients'), ct=document.getElementById('calcTicket');
+    if(cc) cc.addEventListener('input',updateCalcOutput);
+    if(ct) ct.addEventListener('input',updateCalcOutput);
+  },0);
+
+  updateFooter();
+}
+
+function updateFooter() {
+  const parts=[];
+  if(S.name) parts.push(S.name);
+  if(S.city) parts.push(S.city);
+  if(S.date){ let ds=fmtDate(S.date); if(S.time) ds+=` a las ${S.time}h`; parts.push(ds); }
+  if(S.evaluator) parts.push("Evaluado por "+S.evaluator);
+  if(S.contact)   parts.push("Atendido por: "+S.contact);
+  if(S.spent)     parts.push("Ticket: "+parseFloat(S.spent).toFixed(2).replace('.',',')+"€");
+  parts.push("Outside Retail · La Nota de tu Tienda");
+  document.getElementById("footerTxt").textContent=parts.join(" · ");
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  const today=new Date().toISOString().split("T")[0];
+  document.getElementById("inDate").value=today; S.date=today;
+  const now=new Date();
+  S.time=`${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  document.getElementById("inTime").value=S.time;
+
+  [["inName","name"],["inCity","city"],["inDate","date"],["inTime","time"],
+   ["inEval","evaluator"],["inContact","contact"],["inSpent","spent"]].forEach(([id,key])=>{
+    document.getElementById(id).addEventListener("input",e=>{S[key]=e.target.value; updateFooter();});
+  });
+  renderScoring();
+  refreshReport();
+});
+</script>
+</body>
+</html>
