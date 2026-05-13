@@ -355,19 +355,40 @@
     @media print {
       .sticky,.print-bar,.eval-header,.areas-list,.intro-banner,.divider { display: none !important; }
       body { background: #fff; } .page { padding: 12px; }
-      .or-wrap,.cta-card,.action-hero,.calc-card,.why-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .s30, .score-card, .msg-card, .journey-card, .why-card,
+      .calc-card, .obs-report, .action-hero, .team-card,
+      .or-wrap, .cta-card, .report-meta, .insight-card,
+      .multiplier-card, .block { 
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .action-hero, .why-card { page-break-before: auto; }
+      .or-wrap { page-break-before: always; }
+      .score-card, .journey-card, .why-card, .calc-card,
+      .team-card, .obs-report { padding: 20px 24px; }
+      .or-wrap,.cta-card,.action-hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .cta-contact a { text-decoration: underline !important; color: rgba(255,255,255,.75) !important; }
       .s30-next { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .multiplier-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
     @media (max-width: 600px) {
       .eval-header,.action-hero,.team-card,.cta-card,.why-card,.calc-card { padding: 22px 18px; }
       .score-card { padding: 24px 20px; flex-direction: column; gap: 20px; }
       .or-top { padding: 22px 20px 18px; } .or-footer-row { padding: 14px 20px; }
-      .nps-picker { grid-template-columns: 1fr 1fr 1fr; }
-      .nps-btn { width: 36px; height: 36px; font-size: 14px; }
+      .info-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .nps-zone-desc { display: none; }
+      .nps-picker { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+      .nps-zone { padding: 8px 6px 10px; }
+      .nps-btn { width: 34px; height: 34px; font-size: 14px; }
       .calc-scenarios { grid-template-columns: 1fr; }
       .multipliers-grid { grid-template-columns: 1fr 1fr; }
       .journey-card { padding: 22px 18px; }
+      .s30-table td { padding: 11px 16px; }
+      .s30-table td:first-child { width: 120px; }
+    }
+    @media (max-width: 380px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .nps-btn { width: 30px; height: 30px; font-size: 13px; }
     }
   </style>
 </head>
