@@ -583,31 +583,31 @@ const S = {
 /* ═══════════════════════════════════════
    PUNTUACIÓN 0–100
    
-   Fórmula: media ponderada de las 5 puntuaciones (1–5) → escala 0–100
-   Conversión: (media − 1) / 4 × 100
+   Cada puntuación contribuye así a la nota:
+     5 → +1      (promotor completo)
+     4 →  0      (pasivo, neutral — no suma ni resta)
+     3 → −1/3    (detractor leve)
+     2 → −2/3    (detractor medio)
+     1 → −1      (detractor grave)
    
-   0   = todos con puntuación 1
-   25  = todos con puntuación 2
-   50  = todos con puntuación 3
-   75  = todos con puntuación 4 (Pasivos)
-   100 = todos con puntuación 5 (Promotores)
-   
-   Cada punto en la escala 1–5 pesa de forma diferente.
-   Un 1 da distinta nota que un 2, y un 2 distinta que un 3.
+   0  = todos con 1 · 50 = todos con 4 (neutral) · 100 = todos con 5
+   Un 3 resta menos que un 2, y un 2 resta menos que un 1.
 ═══════════════════════════════════════ */
-const BENCHMARK = 63; // equivale a una media de ~3.5/5 en visitas evaluadas
+const BENCHMARK = 63;
+
+function calcScore() {
+  const sc = S.scores.filter(x => x !== null);
+  if (!sc.length) return null;
+  const w = s => s === 5 ? 1 : s === 4 ? 0 : -(4 - s) / 3;
+  const rawNPS = sc.reduce((sum, s) => sum + w(s), 0) / sc.length * 100;
+  return Math.round((rawNPS + 100) / 2);
+}
 
 function calcNPS() {
   const sc=S.scores.filter(x=>x!==null);
   if(!sc.length) return null;
   const p=sc.filter(s=>s===5).length, d=sc.filter(s=>s<=3).length;
   return Math.round(((p-d)/sc.length)*100);
-}
-function calcScore() {
-  const sc=S.scores.filter(x=>x!==null);
-  if(!sc.length) return null;
-  const avg=sc.reduce((a,b)=>a+b,0)/sc.length;
-  return Math.round((avg-1)/4*100);
 }
 function getNPSBreakdown() {
   const sc=S.scores.filter(x=>x!==null);
