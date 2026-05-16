@@ -376,6 +376,9 @@
       .score-card { padding: 24px 20px; flex-direction: column; gap: 20px; }
       .or-top { padding: 22px 20px 18px; } .or-footer-row { padding: 14px 20px; }
       .info-grid { grid-template-columns: 1fr; gap: 10px; }
+      .info-field input { font-size: 16px; padding: 11px 12px; }
+      .info-field input[type="date"],
+      .info-field input[type="time"] { min-width: 0; width: 100%; }
       .nps-zone-desc { display: none; }
       .nps-picker { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
       .nps-zone { padding: 8px 6px 10px; }
@@ -527,17 +530,19 @@ const S = {
 /* ═══════════════════════════════════════
    PUNTUACIÓN 0–100
    
-   Metodología: NPS interno (-100 a +100)
-   Fórmula NPS: (% Promotores − % Detractores) × 100
-   Conversión a escala 0–100: (NPS + 100) / 2
+   Fórmula: media ponderada de las 5 puntuaciones (1–5) → escala 0–100
+   Conversión: (media − 1) / 4 × 100
    
-   0  = todos Detractores (NPS −100)
-   50 = todos Pasivos     (NPS 0)
-   100 = todos Promotores (NPS +100)
+   0   = todos con puntuación 1
+   25  = todos con puntuación 2
+   50  = todos con puntuación 3
+   75  = todos con puntuación 4 (Pasivos)
+   100 = todos con puntuación 5 (Promotores)
    
-   El 50 es la neutralidad. Arriba suman, abajo restan.
+   Cada punto en la escala 1–5 pesa de forma diferente.
+   Un 1 da distinta nota que un 2, y un 2 distinta que un 3.
 ═══════════════════════════════════════ */
-const BENCHMARK = 58; // equivale a NPS +16, media del sector
+const BENCHMARK = 63; // equivale a una media de ~3.5/5 en visitas evaluadas
 
 function calcNPS() {
   const sc=S.scores.filter(x=>x!==null);
@@ -546,9 +551,10 @@ function calcNPS() {
   return Math.round(((p-d)/sc.length)*100);
 }
 function calcScore() {
-  const nps=calcNPS();
-  if(nps===null) return null;
-  return Math.round((nps+100)/2);
+  const sc=S.scores.filter(x=>x!==null);
+  if(!sc.length) return null;
+  const avg=sc.reduce((a,b)=>a+b,0)/sc.length;
+  return Math.round((avg-1)/4*100);
 }
 function getNPSBreakdown() {
   const sc=S.scores.filter(x=>x!==null);
@@ -1009,7 +1015,7 @@ function refreshReport() {
         </div>
         <div class="cta-contact">
           <a href="mailto:helioxintelligence@gmail.com">helioxintelligence@gmail.com</a>
-          <a href="https://wa.me/34600000000">WhatsApp: +34 600 000 000</a>
+          <a href="https://wa.me/34614628914">WhatsApp: +34 614 628 914</a>
         </div>
       </div>
     </div>
