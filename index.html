@@ -378,7 +378,22 @@
       .jtag-pro,.jtag-pas,.jtag-det,.bench-item,.calc-scenario {
         -webkit-print-color-adjust: exact; print-color-adjust: exact;
       }
+      /* Links visibles */
       .cta-contact a { text-decoration: underline !important; color: rgba(255,255,255,.75) !important; }
+
+      /* ── Outside Retail: encabezado oscuro sí, tarjetas blancas en print ── */
+      .or-wrap { background: #fff !important; border: 2px solid #1d1d1f; }
+      .or-top  { background: #1d1d1f !important; border-radius: 0; border-bottom: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .or-grid { background: #e8e8ed; }
+      .or-card, .or-card.done { background: #fff !important; border: none; }
+      .or-card.done { background: #f0f6ff !important; }
+      .or-card-name         { color: #1d1d1f !important; }
+      .or-card.pending .or-card-name { color: #6e6e73 !important; }
+      .or-card-text         { color: #6e6e73 !important; }
+      .or-card.done .or-card-text { color: #4a4a4a !important; }
+      .or-footer-row { border-top: 1px solid #e8e8ed; background: #f5f5f7; }
+      .or-footer-txt  { color: #6e6e73 !important; }
+      .or-footer-link { color: #0071e3 !important; }
       .print-cover { display: block !important; }
       .calc-inputs-row { display: none !important; }
       .calc-card-base-note { display: block !important; }
